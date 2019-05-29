@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+
+<form action="{% url 'app:add' %}" method="post">
+    <h3>Add your ToDo here:</h3>
+    {% csrf_token %}
+    {{ form.text }}
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+<br><br>
+
+<a href="{% url 'app:delete' %}">Delete completed</a><br>
+<a href="">Assignment</a><br>
+<a href="{% url 'app:resetTodo' %}">Reset everything</a>
+
+<ul>
+    {% for todo in myTodo %}
+        {% if todo.complete %}
+            <li style="background-color: aqua;"><a href="{% url 'app:addBack' todo.pk %}">{{ todo.text }}</a></li>
+        {% else %}
+            <li><a href="{% url 'app:comp' todo.pk %}">{{ todo.text }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+    <h4>Instructions:</h4>
+        <ul>
+            <li>Add your list item.</li>
+            <li>Click on your list mark it as complete.</li>
+            <li>With background color indicates that your work is done.</li>
+            <li>If you want it back into your list you can click on that again.</li>
+            <li>you can reset everything or delete list that you completed.</li>
+        </ul>
+</body>
+</html>
